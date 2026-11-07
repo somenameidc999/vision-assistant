@@ -4,6 +4,12 @@
 !.env.example
 *.pem
 *.key
+*.p12
+*.pfx
+*.mobileprovision
+*.provisionprofile
+*.ipa
+*.xcarchive/
 credentials*.json
 service-account*.json
 data/local/
@@ -12,3 +18,9 @@ runs/
 __pycache__/
 node_modules/
 dist/
+.build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+ios/VisionAssistant/LocalConfig.json
+ios/VisionAssistant.xcodeproj/
