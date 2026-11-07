@@ -1,0 +1,64 @@
+name: VisionAssistant
+options:
+  bundleIdPrefix: local.personal
+  deploymentTarget:
+    iOS: '16.6'
+packages:
+  VisionCore:
+    path: VisionCore
+settings:
+  base:
+    SWIFT_VERSION: '5.0'
+    SWIFT_STRICT_CONCURRENCY: minimal
+    TARGETED_DEVICE_FAMILY: '1,2'
+targets:
+  VisionAssistant:
+    type: application
+    platform: iOS
+    sources:
+      - path: VisionAssistant
+        excludes: [Info.plist]
+    dependencies:
+      - package: VisionCore
+    info:
+      path: VisionAssistant/Info.plist
+      properties:
+        CFBundleDisplayName: Vision Assistant
+        NSCameraUsageDescription: Show the scene so you can ask the assistant questions about selected camera frames.
+        NSSpeechRecognitionUsageDescription: Show your spoken words live with on-device speech recognition. Questions go to your assistant after you finish speaking.
+        NSMicrophoneUsageDescription: Record your questions during a session and send each question to the assistant.
+        NSLocalNetworkUsageDescription: Connect to your Vision Assistant backend on your Mac.
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+          NSExceptionDomains:
+            localhost:
+              NSExceptionAllowsInsecureHTTPLoads: true
+            '10.0.0.0/8':
+              NSExceptionAllowsInsecureHTTPLoads: true
+            '172.16.0.0/12':
+              NSExceptionAllowsInsecureHTTPLoads: true
+            '192.168.0.0/16':
+              NSExceptionAllowsInsecureHTTPLoads: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: local.personal.VisionAssistant
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        MARKETING_VERSION: '0.1.0'
+        CURRENT_PROJECT_VERSION: 1
+        GENERATE_INFOPLIST_FILE: false
+        CODE_SIGN_STYLE: Automatic
+    scheme:
+      testTargets: [VisionAssistantUITests]
+  VisionAssistantUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [VisionAssistantUITests]
+    dependencies:
+      - target: VisionAssistant
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: local.personal.VisionAssistantUITests
+        GENERATE_INFOPLIST_FILE: true
+        CODE_SIGN_STYLE: Automatic
